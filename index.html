@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Chill Cruise around Aarhus — Why Not Aarhus Lindy Exchange</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Limelight&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#1C1714; --surface:#261E18; --surface2:#2F251D;
+  --cream:#EDE4D3; --muted:#9A8870;
+  --brass:#C8A24B; --brass-dim:#7A6535; --wine:#9B2D3A;
+  --line:rgba(200,162,75,.22); --ok:#7FA86B;
+  --shadow:0 24px 60px -20px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Jost',system-ui,sans-serif;color:var(--cream);
+  background:
+    radial-gradient(1200px 600px at 50% -10%, #2A211A 0%, transparent 60%),
+    radial-gradient(800px 800px at 100% 100%, rgba(155,45,58,.10) 0%, transparent 55%),
+    var(--night);
+  min-height:100vh;line-height:1.55;-webkit-font-smoothing:antialiased;
+  padding:clamp(16px,4vw,40px) clamp(14px,4vw,24px) 80px;
+}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  box-shadow:inset 0 0 220px 40px rgba(0,0,0,.55)}
+.wrap{max-width:620px;margin:0 auto;position:relative;z-index:1}
+
+header{text-align:center;padding:8px 0 18px}
+.eyebrow{font-size:.72rem;letter-spacing:.42em;text-transform:uppercase;
+  color:var(--brass);font-weight:500;margin-bottom:14px}
+h1{font-family:'Limelight',serif;font-weight:400;
+  font-size:clamp(2.1rem,9vw,3.4rem);line-height:.98;color:var(--cream);
+  text-shadow:0 2px 0 rgba(0,0,0,.4)}
+h1 .amp{color:var(--brass)}
+.tagline{color:var(--muted);font-size:.95rem;margin-top:12px;font-style:italic}
+
+/* step track */
+.track{display:flex;align-items:center;justify-content:center;gap:2px;
+  flex-wrap:wrap;padding:18px 0 8px}
+.foot{width:24px;height:32px;transition:transform .4s ease}
+.foot svg{width:100%;height:100%;display:block}
+.foot.left{transform:rotate(-12deg) translateY(4px)}
+.foot.right{transform:rotate(12deg) translateY(-4px)}
+.foot .sole{fill:none;stroke:var(--brass-dim);stroke-width:1.4;stroke-dasharray:3 4;
+  transition:fill .5s ease,stroke .5s ease}
+.foot.done .sole{fill:var(--brass);stroke:var(--brass);stroke-dasharray:0}
+.foot.current .sole{fill:none;stroke:var(--cream);stroke-dasharray:0;
+  animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+.progress-label{text-align:center;color:var(--muted);font-size:.78rem;
+  letter-spacing:.22em;text-transform:uppercase;margin-bottom:24px}
+
+/* card */
+.card{background:linear-gradient(180deg,var(--surface2),var(--surface));
+  border:1px solid var(--line);border-radius:6px;box-shadow:var(--shadow);
+  overflow:hidden;animation:rise .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.card-top{display:flex;align-items:baseline;gap:12px;
+  padding:18px 22px 12px;border-bottom:1px solid var(--line)}
+.num{font-family:'Limelight',serif;color:var(--brass);font-size:1.5rem;line-height:1}
+.station{font-size:1.15rem;font-weight:500}
+.phase-tag{margin-left:auto;font-size:.66rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);align-self:center}
+.card-body{padding:20px 22px 22px}
+
+.visual{width:100%;max-height:60vh;border-radius:4px;overflow:hidden;
+  background:var(--night);border:1px solid var(--line);margin-bottom:18px;
+  display:flex;align-items:center;justify-content:center}
+.visual img{max-width:100%;max-height:60vh;width:auto;height:auto;display:block}
+.visual .placeholder{width:100%;aspect-ratio:16/10;height:auto;display:block}
+
+.desc{color:var(--cream);font-size:1rem;margin-bottom:8px}
+.desc-scroll{max-height:38vh;overflow-y:auto;margin-bottom:8px;padding-right:10px;
+  overscroll-behavior:contain}
+.desc-scroll p{color:var(--cream);font-size:1rem;margin-bottom:12px}
+.desc-scroll p:last-child{margin-bottom:0}
+.desc-scroll::-webkit-scrollbar{width:6px}
+.desc-scroll::-webkit-scrollbar-thumb{background:var(--brass-dim);border-radius:3px}
+.desc-scroll::-webkit-scrollbar-track{background:transparent}
+.lookaround{color:var(--muted);font-size:.92rem;margin-bottom:14px}
+.riddle{color:var(--cream);font-size:1.05rem;font-style:italic;
+  border-left:2px solid var(--brass);padding:10px 0 10px 16px;margin:16px 0 4px}
+
+.aux{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 4px}
+.ghost{background:transparent;border:1px solid var(--line);color:var(--cream);
+  font-family:inherit;font-size:.82rem;letter-spacing:.05em;padding:9px 14px;
+  border-radius:3px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;
+  transition:.2s;text-decoration:none}
+.ghost:hover{border-color:var(--brass);color:var(--brass)}
+.ghost svg{width:15px;height:15px;fill:currentColor}
+.back-link{background:none;border:none;color:var(--muted);font-family:inherit;
+  font-size:.82rem;letter-spacing:.04em;cursor:pointer;display:inline-flex;
+  align-items:center;gap:6px;padding:2px 0;margin-bottom:12px;transition:.2s}
+.back-link:hover{color:var(--brass)}
+.back-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2}
+
+.hints{margin:14px 0 2px;display:flex;flex-direction:column;gap:8px}
+.clues-row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 2px}
+.clue-btn.used{border-color:var(--brass);color:var(--brass);opacity:.6}
+.clue-btn:disabled{opacity:.32;cursor:not-allowed}
+.clue-btn:disabled:hover{border-color:var(--line);color:var(--cream)}
+.hint{background:rgba(200,162,75,.07);border:1px solid var(--line);border-radius:3px;
+  padding:10px 14px;font-size:.9rem;color:var(--muted);animation:rise .4s both}
+.hint b{color:var(--brass);font-weight:500;font-style:normal}
+
+.answer-row{display:flex;gap:10px;margin-top:20px}
+.answer-row input{flex:1;background:var(--night);border:1px solid var(--line);
+  color:var(--cream);font-family:inherit;font-size:1rem;padding:13px 16px;
+  border-radius:3px;outline:none;transition:.2s}
+.answer-row input::placeholder{color:rgba(154,136,112,.6)}
+.answer-row input:focus{border-color:var(--brass);box-shadow:0 0 0 3px rgba(200,162,75,.12)}
+.solve{background:var(--brass);color:var(--night);border:none;font-family:inherit;
+  font-weight:600;font-size:.95rem;letter-spacing:.04em;padding:0 22px;border-radius:3px;
+  cursor:pointer;transition:.2s;white-space:nowrap}
+.solve:hover{background:#dcb45a}
+.solve:active{transform:translateY(1px)}
+
+.feedback{margin-top:12px;font-size:.9rem;min-height:1.2em}
+.feedback.bad{color:var(--wine)}
+.feedback.good{color:var(--ok)}
+.shake{animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+
+/* answer page */
+.solved-badge{display:inline-flex;align-items:center;gap:8px;color:var(--ok);
+  font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px}
+.solved-badge svg{width:16px;height:16px;fill:currentColor}
+.reveal{font-size:1.05rem;margin-bottom:6px}
+.reveal b{font-family:'Limelight',serif;color:var(--brass);font-weight:400;
+  font-size:1.3rem;display:block;margin-top:4px}
+.answer-note{color:var(--muted);font-size:.95rem;margin-top:12px}
+
+/* primary nav button */
+.next-btn{display:block;width:100%;margin-top:22px;background:var(--brass);
+  color:var(--night);border:none;font-family:inherit;font-weight:600;
+  font-size:1rem;letter-spacing:.04em;padding:15px;border-radius:4px;
+  cursor:pointer;transition:.2s}
+.next-btn:hover{background:#dcb45a}
+.next-btn:active{transform:translateY(1px)}
+.gps-btn{margin-top:16px;width:100%;justify-content:center}
+.home-cta{display:flex;justify-content:center;padding:24px 0 10px}
+.big-begin{width:auto;min-width:220px;font-size:1.2rem;padding:18px 48px;letter-spacing:.08em}
+
+/* home / route picker */
+.intro-copy{color:var(--cream);margin:4px 0 22px;text-align:center}
+.story-text{color:var(--cream);text-align:left;margin:2px 0 22px}
+.story-text p{margin-bottom:14px}
+.story-text p:last-child{margin-bottom:0}
+.story-text em{color:var(--brass);font-style:italic;font-weight:500}
+.have-fun{color:var(--brass);font-style:italic;font-size:1.05rem}
+.routes{display:flex;flex-direction:column;gap:12px;margin-bottom:8px}
+.route-card{text-align:left;background:var(--surface);border:1px solid var(--line);
+  border-radius:5px;padding:16px 18px;cursor:pointer;transition:.2s;
+  display:flex;align-items:center;gap:14px;font-family:inherit;color:var(--cream)}
+.route-card:hover{border-color:var(--brass-dim)}
+.route-card.sel{border-color:var(--brass);background:rgba(200,162,75,.08)}
+.route-card .rc-name{font-size:1.05rem;font-weight:500}
+.route-card .rc-meta{color:var(--muted);font-size:.85rem;margin-top:2px}
+.route-card .rc-dot{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--brass-dim);
+  flex:0 0 auto;transition:.2s;position:relative}
+.route-card.sel .rc-dot{border-color:var(--brass);background:var(--brass)}
+.route-card .rc-text{flex:1}
+
+.finale{text-align:center;padding:44px 22px}
+.finale h2{font-family:'Limelight',serif;color:var(--brass);
+  font-size:clamp(1.8rem,7vw,2.6rem);font-weight:400;margin-bottom:14px}
+.finale-title{font-family:'Limelight',serif;color:var(--brass);font-weight:400;
+  font-size:clamp(1.7rem,7vw,2.4rem);text-align:center;margin:18px 0 14px}
+.finale p{color:var(--cream);max-width:40ch;margin:0 auto 8px}
+.finale .stats{color:var(--muted);font-size:.85rem;margin-top:20px;letter-spacing:.06em}
+
+/* password field + reveal eye */
+.pw-field{position:relative;flex:1;display:flex}
+.pw-field input{flex:1;padding-right:46px!important}
+.pw-eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  background:none;border:none;color:var(--muted);cursor:pointer;padding:8px;
+  display:flex;align-items:center;border-radius:3px;transition:.2s}
+.pw-eye:hover{color:var(--brass)}
+.pw-eye svg{width:20px;height:20px;fill:currentColor}
+
+/* celebration overlay */
+.celebrate{position:fixed;inset:0;z-index:50;pointer-events:none;overflow:hidden;
+  display:flex;align-items:center;justify-content:center}
+.celebrate .msg{font-family:'Limelight',serif;color:var(--brass);
+  font-size:clamp(2.2rem,11vw,4.2rem);text-shadow:0 3px 0 rgba(0,0,0,.45);
+  animation:pop .5s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes pop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
+.confetti{position:absolute;width:10px;height:14px;top:-24px;
+  animation:fall linear forwards}
+@keyframes fall{
+  0%{transform:translate(0,-24px) rotate(0);opacity:1}
+  100%{transform:translate(var(--drift,0),112vh) rotate(var(--spin,720deg));opacity:.95}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow" style="letter-spacing:.26em">Why Not Aarhus Lindy Exchange</div>
+    <h1>A Chill <span class="amp">Cruise</span><br>around Aarhus</h1>
+    <p class="tagline" id="tagline">A little trip down memory lane in our beautiful city.</p>
+  </header>
+  <div class="track" id="track" aria-hidden="true"></div>
+  <div class="progress-label" id="progressLabel"></div>
+  <main id="stage"></main>
+</div>
+
+<script>
+/* =====================================================================
+   ▼▼▼  YOUR CONTENT  ▼▼▼
+   For each stop:
+   - station : the place / monument name
+   - lat,lng : its GPS coordinates (used by the "Directions" button)
+   - image   : a photo URL (leave "" for the decorative frame)
+   - desc    : the description ("Listen" reads it aloud)
+   - prompt  : the "look around" line on the riddle page (optional)
+   - riddle  : the puzzle to solve on site
+   - answers : every accepted answer — put the nicest form FIRST,
+               it's the one revealed on the answer page.
+               (case / accents / punctuation are ignored)
+   - hints   : revealed one at a time on request
+   - note    : optional extra line shown on the answer page
+   - audio   : optional .mp3 URL if you'd rather use your own voice
+   - short   : true  -> included in the "Quick loop"
+               false -> only in the "Full tour"
+   (The example coordinates are real spots in Aarhus so the GPS button
+    works out of the box — swap them for your own.)
+   ===================================================================== */
+const GAME_PASSWORD = "BalboaIsBetterThanLindy!";   // the word players type on the password screen to start
+
+// Intro text. PART 1 shows on its own page (with a Next button);
+// PART 2 shows above the route picker.
+const INTRO_PART1 = `
+      <p>Welcome to Aarhus, and thanks for joining us at our <em>Why Not Aarhus Lindy Exchange</em>! We have a lot of things planned for you — amazing teachers, fun tasters and fantastic bands for our parties!</p>
+      <p>But if you'd like a little stroll around the city, and learn a little bit about its evolution through the decades and centuries, then this scavenger hunt is for you! It will take you to some of the most famous landmarks scattered around Aarhus, and make you solve a few riddles to unlock the next stops in your adventure.</p>`;
+
+const INTRO_PART2 = `
+      <p>This game has two different routes, depending on the time you have available. If you'd like a quick overview of the unmissable spots of the city, select the <b>Short Tour</b>. But if you're not in a rush and would like to experience the entirety of the game, select the <b>Complete Tour</b>.</p>
+      <p class="have-fun">Have fun!</p>`;
+
+// Ending screen (shown after the final stop)
+const ENDING_IMAGE = "images/ending.gif";   // photo at the top of the ending screen
+const ENDING_TEXT = `
+      <p>Thanks for playing! We hope that you enjoyed yourself, and that you've learnt a little bit about our beautiful city! Now you know what to visit in more depth next time you come to Aarhus (for Why Not 2027, for example ;) ).</p>
+      <p class="have-fun">See you on the dance floor!</p>`;
+
+const HUNT = {
+  steps: [
+    {
+      station: "Aarhus Street Food",
+      lat: 56.151443, lng: 10.208904,
+      image: "images/aarhus-street-food.jpg",   // photo at the top of the description page
+      desc: "One of the best places in Aarhus to meet friends, grab food and drinks, before going dancing!\n\nBuilt in the 1950s, this used to be an industrial bus garage for DSB, the Danish railway company, before being decommissioned in 2011. A few years later, local entrepreneurs, inspired by the street food markets of London and Copenhagen, decided to give the building a second life. After a successful crowdfunding campaign, and with support from the city, Aarhus Street Food officially opened in 2016!\n\nLots of food choices in here, but a personal recommendation would be Za'atar, trust me, it's très bon! The duck and beef burgers are burgering pretty well though, if you'd like a typical Danish dish, the tarteletter are here for that, and the Crepe shop is... well misspelled, but hey I'm sure they're still super good!",
+      prompt: "",
+      riddleImage: "images/indisk-riddle.jpg",   // photo at the top of the riddle page (optional)
+      riddle: "Another spot worthy of interest is the Indian restaurant Indisk — which seems to be run by a fellow Lindy Hopper, since he named one of his dishes after the rhythm of the triple-step! Can you find the name of that dish?",
+      answers: ["Papadum", "papadums", "pappadum", "poppadom", "poppadum", "papad"],
+      hints: [
+        "Look for the map at the back of the restaurant.",
+        "Triple steps are particularly popular in the south of the country!",
+        "At the very south…"
+      ],
+      answerImage: "images/papadum.gif",          // photo at the top of the answer page (optional)
+      answerText: "Papadum indeed! Feel free to grab some of these bean snacks on your way out, while you head for the next location!",
+      note: "",
+      audio: "",
+      short: true
+    },
+    {
+      station: "Town Hall",
+      lat: 56.152995, lng: 10.203444,
+      image: "images/town-hall.jpg",
+      desc: "This is the city's town hall! Now, I know what you're thinking, it is... well, not the prettiest in my opinion, but hey, it has an interesting history! This building was the result of an architecture contest in 1937, and was inaugurated in 1941. It symbolizes the surge of modernism that took place in the 30s, and the birth of the Scandinavian design, that focuses on simple forms, purer lines and fewer ornaments.\n\nFun fact: the tower was not in the initial design, to push the minimalism to the utmost, but many inhabitants considered that a town hall without a tower was kinda like lindy hop without swingouts: it's not really the same. So the architects agreed to update their design with a 60 meter high clock tower.\n\nAnd today, the building is considered a masterpiece of Scandinavian modernism. Go figure.",
+      prompt: "",
+      riddleImage: "images/town-hall-riddle.jpg",
+      riddle: "Now, if you look on your right, you will also see a fountain, depicting a cute little family of piggies. But these are not the only animals hiding in the vicinity, there is another one, close by. Can you tell what kind of animal it is?",
+      answers: ["bird", "a bird", "birds"],
+      hints: [
+        "This animal is not in 3D this time, but in 2D.",
+        "No need to look too far, it is located on the same sidewalk as you are.",
+        "Look close to the road."
+      ],
+      answerImage: "images/town-hall-answer.jpg",
+      answerText: "Yes, a bird! To be more precise, this is called a Pip, and it is not the only one that exists in the city! Keep your eyes peeled, you might be able to spot other ones during your tour! Maybe there is even one on your way to the next spot…",
+      note: "",
+      audio: "",
+      short: true
+    },
+    {
+      station: "ARoS",
+      lat: 56.155404, lng: 10.199667,
+      image: "images/aros.jpg",
+      desc: "Probably the most iconic building of beautiful Aarhus! Inaugurated in the first decade of the 21st century, this building's name comes from Old Norse, Áróss, the original name of the city, which roughly means 'the settlement at the river mouth.' (Which river is called... Aarhus River. The loop is looped.)\n\nIts beautiful Rainbow Crown was added in the decade after, and was created by an Icelandic-Danish artist. It symbolizes perfectly the desire for creativity, modernity, and innovation that the city wanted to display, and probably contributed to the selection of the city as European Capital of Culture for the year 2017!\n\nBut isn't it also a beautiful allegory of swing: all the colors of the rainbow, all different to the outside eye, but all united in a single frame, that brings us all together. Especially Balboa. I love Balboa.",
+      prompt: "",
+      riddleImage: "images/aros-riddle.jpg",
+      riddle: "Now if you look behind you, you can also spot a long metallic sculpture oscillating in the wind, in the park Mølleparken. Can you guess what kind of animal it is supposed to represent?",
+      answers: ["snake", "a snake", "snakes"],
+      hints: [
+        "Get a closer look.",
+        "An even closer one.",
+        "Or check Google Maps :)"
+      ],
+      answerImage: "images/aros-answer.jpg",
+      answerText: "Yes, this is one of the many snake sculptures scattered around Denmark, but also in Australia! Look at it slithering around in the wind. Speaking of wind, it will carry your steps to the next location…",
+      note: "",
+      audio: "",
+      short: true
+    },
+    {
+      station: "Den Gamle By",
+      lat: 56.157946, lng: 10.193714,
+      image: "images/den-gamle-by.jpg",
+      desc: "What better place to symbolize the theme of this year's exchange? Den Gamle By (The Old Town), which has been elected Best European Museum of The Year 2026, was founded in the 1900s. This open-air museum, one of the world's first, contains historical buildings that have been saved from destruction, and rebuilt stone by stone in Aarhus. The oldest building is the house of an Aalborg mayor... from 1597! We're beyond decades here, the centuries up to the 16th are represented by the buildings, and even prior to that, with the museum of the history of Aarhus that you can visit inside!\n\nHowever, one of its most famous areas will take you back to the 1970s, with shops full of old televisions, vinyl records, vintage cars, etc... If you go for a visit in there (which is free from 5pm to 10pm), and you're sneaky about it, you can try to... \"borrow\" an outfit for tonight's party ;p",
+      prompt: "",
+      riddleImage: "images/den-gamle-by-riddle.jpg",
+      riddle: "Now find the animal that… Oh wait… I've just received some info that one of the members of The Big Five will be unavailable tonight, and they need a replacement! I heard that there might be an instrument player around Den Gamle By, can you tell me what instrument he plays, to see if it fits their needs?",
+      answers: ["drums", "drum", "the drums", "drum kit", "drumset", "drum set", "percussion"],
+      hints: [
+        "Apparently he doesn't like to be outside too much.",
+        "Nor does he like to stand too much.",
+        "And it is neither a string, nor a wind instrument."
+      ],
+      answerImage: "images/den-gamle-by-answer.jpg",
+      answerText: "Ahh drums, got it, thanks! I heard that he is a good player, but a bit rigid in his style! While I confirm with the band if it fits their needs, feel free to travel to the next stop!",
+      note: "",
+      audio: "",
+      short: true
+    },
+    {
+      station: "Botanical Garden Greenhouses",
+      lat: 56.160204, lng: 10.193208,
+      image: "images/greenhouses.jpg",
+      desc: "The crown jewels of Aarhus' botanical garden! These greenhouses opened their doors in the previous decade, and were born from a desire to create free and immersive natural bubbles for everyone to experience, but also to raise awareness about biodiversity and global warming, and to help the city transition from an industrial hub into a greener, more environmentally conscious one. From Mediterranean vegetation to subtropical plants, through desert landscapes filled with cacti and finally the tropical dome, get ready for a true ecological journey!\n\nThe tropical greenhouse is also home to numerous colorful butterflies, so keep your eyes peeled to spot these fluttering beauties, and mind the doors to make sure they don't escape! However, swingouts in the tropical bubble are not recommended, especially if you climb to the top: you'll get drenched in sweat faster than if The Big Five were playing their fastest tune!",
+      prompt: "",
+      riddleImage: "images/greenhouses-riddle.jpg",
+      riddle: "Speaking of the tropical greenhouse, they also seem to have installed a natural baby play park, where you can put your children while you explore the rest of the place. Can you tell me what plant they used for this play park?",
+      answers: ["giant water lilies", "giant water lily", "water lilies", "water lily", "giant waterlily", "waterlily", "waterlilies", "water lilly", "water lillies"],
+      hints: [
+        "No need to look on the upper levels, it is on the ground floor.",
+        "No need to get lost between the inner plants, the park is close to the outer wall of the greenhouse.",
+        "Your children would not die of thirst if they are dropped there."
+      ],
+      answerImage: "images/greenhouses-answer.jpg",
+      answerText: "Yes, giant water lilies, which are said to be able to hold the weight of a small baby! Wouldn't recommend trying aerials on them though, unless the heat urges you to take a quick bath! Onto the next spot now!",
+      note: "",
+      audio: "",
+      short: false
+    },
+    {
+      station: "Vesterbro Torv",
+      lat: 56.158283, lng: 10.199382,
+      image: "images/vesterbro-torv.jpg",
+      desc: "This area might not be the most spectacular place you'll find in the city, but don't be fooled, as it used to be one of the most important crossroads of the city, throughout history! Vesterbro literally means \"Western Bridge\", because it used to mark the western entrance to the medieval city, originally located outside its walls. It began to flourish in the 19th century, when Aarhus began rapidly expanding, along with the gradual disappearance of the medieval fortifications. By the 20th century, it had become a very lively zone, and an important hub for buses, trams and cars.\n\nAarhus trams operated here until the 1970s, when they were abandoned in favor of buses and cars (but came back to life decades later, in other areas of the city). In the early 2000s, the transformation of the area was discussed even further, around the removal of cars in favor of pedestrians and bikes. Another sign, if one was needed, that our city strives to be greener!",
+      prompt: "",
+      riddleImage: "images/vesterbro-torv-riddle.jpg",
+      riddle: "Who's that animal? It's been a while since we last had an animal riddle, hasn't it? The owner of one of the buildings on this square seems to have a deep love for one animal in particular, can you find which one it is?",
+      answers: ["deer", "a deer", "the deer", "deers"],
+      hints: [
+        "He also seems to have a deep love for hoppy beverages.",
+        "Test your orientation skills, and see if you can look in the direction of Den Gamle By.",
+        "It is located in one of the corners of the triangle."
+      ],
+      answerImage: "images/vesterbro-torv-answer.jpg",
+      answerText: "A deer indeed! As the new gnu knew, it is clear that a dear deer drinking beer might cheer for you, on your way to the next venue!",
+      note: "",
+      audio: "",
+      short: false
+    },
+    {
+      station: "Latin Quarter",
+      lat: 56.158143, lng: 10.208087,
+      image: "images/latin-quarter.jpg",
+      desc: "The oldest part of the city, as you may have guessed, from the cobblestones on which you are currently walking. The history of this neighborhood dates back to the 14th century, and it still contains some of the oldest preserved buildings in Aarhus, including houses dating from the early 17th century.\n\nHowever, its current name came in the 1960s, when the area was being renovated. Architects and city officials were looking for inspiration, and, wisely enough, turned to the French. On a trip to Paris, they became fascinated by the famous neighborhood on the Left Bank of the Seine, known as Le Quartier Latin! Aarhus adopted the name shortly afterwards. This area is perfect to grab a coffee in a cozy square, visit a microbrewery or find a handmade ceramic souvenir to bring back home from your trip to the City of Smiles!",
+      prompt: "",
+      riddleImage: "images/latin-quarter-riddle.jpg",
+      riddle: "Speaking of the French influence, there is a very clear and direct reference to a place in Paris, somewhere in this area. Can you find the name of that place?",
+      answers: ["Place Pigalle", "Pigalle", "place pigalle"],
+      hints: [
+        "As with any location plaque, it might be hanging on a wall.",
+        "It might be quite different from the rest of the plaques in Aarhus.",
+        "Sophie might be quite attached to that plaque."
+      ],
+      answerImage: "images/latin-quarter-answer.jpg",
+      answerText: "Indeed! That area is famous in the history of Paris for its... particular trade. But since we would like to keep this game PG, let's not dwell on this subject too much, and head instead to the next location!",
+      note: "",
+      audio: "",
+      short: true
+    },
+    {
+      station: "Aarhus Domkirke",
+      lat: 56.157166, lng: 10.209249,
+      image: "images/domkirke.jpg",
+      desc: "This is the most iconic cathedral in all of Aarhus, and probably even in Denmark! Built between the 12th and the 13th centuries, it has been the tallest building in the city for a long time, and got even bigger from the 14th century, when it was transformed into a Gothic-style cathedral. To this day, it remains the longest and tallest church in Denmark, and its tower was useful for sailors, who could see it from afar (which is quite fitting, as the cathedral is dedicated to St Clement, the patron saint of sailors!)\n\nFun fact: some murals were covered with white paint inside the cathedral after the Protestant Reformation, and were rediscovered centuries later. Kinda like obscure swing moves from the 1930s suddenly reappearing thanks to a random grainy video someone uploaded to the internet!",
+      prompt: "",
+      riddleImage: "images/domkirke-riddle.jpg",
+      riddle: "Shhht… Act natural, but I have a feeling that we're being watched... It seems to be coming from the old theater, behind the cathedral, on the right. Can you carefully and discreetly go to investigate where it comes from?",
+      answers: ["demon", "a demon", "devil", "a devil", "the devil"],
+      hints: [
+        "For it to be able to see us from that far, it must have a high vantage point.",
+        "This feeling I get is really the opposite of what I feel from the cathedral…",
+        "Yeah it must be very evil… Coming from hell, or something…"
+      ],
+      answerImage: "images/domkirke-answer.jpg",
+      answerText: "A horrible demon… This statue was installed two days before the opening of the theater, in the year 1900, and has been scaring passersby ever since… Don't linger too much under its gaze, and quickly head to the next location!",
+      note: "",
+      audio: "",
+      short: true
+    },
+    {
+      station: "Dokk1",
+      lat: 56.15348, lng: 10.212893,
+      image: "images/dokk1.jpg",
+      desc: "Quite a contrast with the previous building! Dokk1 is one of the most modern buildings in the city. Opened in the previous decade, in 2015, it is the symbol of the transformation of Aarhus' former industrial harbor, which used to be dedicated to containers, ferries and shipping.\n\nAlthough its official purpose is to serve as a public library, Dokk1 is so much more than that. It has become a popular meeting place, hosting concerts, exhibitions, public events, and all kinds of community activities throughout the year. We even organized a flashmob as part of Why Not Aarhus Lindy Exchange here, a few years ago!",
+      prompt: "",
+      riddleImage: "images/dokk1-riddle.jpg",
+      riddle: "For this final riddle, there is an interesting piece of art that can be found under Dokk1, between the automated parking doors. Head there, look up, and try to guess what might be the name of this piece.",
+      answers: ["The Magic Mushrooms", "Magic Mushrooms", "magic mushrooms", "the magic mushrooms", "magic mushroom", "mushrooms"],
+      hints: [
+        "It is named after a specialty from Amsterdam.",
+        "You must be under the influence to imagine something like this…",
+        "There might be a plaque around, indicating the name that you are looking for."
+      ],
+      answerImage: "images/dokk1-answer.jpg",
+      answerText: "The Magic Mushrooms! Some say it's called this because of buildings growing like mushrooms when a city expands. Others say that, if you want to visualize these kinds of Inception-like scenes, well… A little help from our friends the fungi could be useful. Now, before you hurt your neck by looking up too much, head to your final destination!",
+      note: "",
+      audio: "",
+      short: true
+    },
+    {
+      station: "Turbinehallen",
+      lat: 56.1507148, lng: 10.2120161,
+      image: "images/turbinehallen.jpg",
+      desc: "You have now reached the end of your little tour of Aarhus… by coming back to where it began! You already saw this building yesterday evening, but let us tell you one final story about it.\n\nTurbinehallen was once a building dedicated to electricity production during Aarhus' industrial expansion in the 20th century. Its location near the harbor was crucial, as it helped provide power to the surrounding industrial and port activities. By the end of the century, most energy production facilities had been moved outside the city. Rather than tearing the building down, Aarhus, as with many other buildings, chose to transform it into a cultural venue capable of hosting concerts, performances, and all kinds of events.\n\nSo tonight, instead of using this building to produce energy like it once did, let's spend all of ours on the dance floor!",
+      final: true,             // last stop: no riddle, its "Next" button leads to the ending screen
+      prompt: "",
+      riddleImage: "",
+      riddle: "",
+      answers: [],
+      hints: [],
+      answerImage: "",
+      answerText: "",
+      note: "",
+      audio: "",
+      short: true
+    }
+  ]
+};
+/* =====================================================================
+   ▲▲▲  END OF YOUR CONTENT  ▲▲▲
+   ===================================================================== */
+
+const state = {
+  screen: 'home',        // 'home' | 'play' | 'finale'
+  route: null,           // 'full' | 'short'
+  pendingRoute: 'full',  // selection on the home screen
+  phase: 'intro',        // 'intro' | 'riddle' | 'answer'
+  current: 0,
+  hintsShown: []
+};
+
+function activeSteps(){
+  return state.route === 'short'
+    ? HUNT.steps.filter(s => s.short)
+    : HUNT.steps;
+}
+
+function norm(s){
+  return s.toLowerCase().trim()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^\w\s]/g," ").replace(/\s+/g," ").trim();
+}
+
+const footSVG = `<svg viewBox="0 0 26 34"><path class="sole" d="M13 2c5 0 8 5 8 12 0 6-2 10-2 14 0 3-2 4-6 4s-6-1-6-4c0-4-2-8-2-14C5 7 8 2 13 2z"/></svg>`;
+
+function renderTrack(){
+  const track = document.getElementById('track');
+  const label = document.getElementById('progressLabel');
+  if (!['travel','play','finale'].includes(state.screen)){
+    track.innerHTML = ''; label.textContent = ''; return;
+  }
+  const steps = activeSteps();
+  track.innerHTML = steps.map((_,i)=>{
+    const side = i % 2 ? 'right' : 'left';
+    let cls = '';
+    if (state.screen==='finale' || i < state.current) cls='done';
+    else if (i === state.current) cls='current';
+    return `<span class="foot ${side} ${cls}">${footSVG}</span>`;
+  }).join('');
+  label.textContent = state.screen==='finale'
+    ? 'Trail complete'
+    : state.screen==='travel'
+    ? 'Heading to your first stop'
+    : `Stop ${state.current+1} of ${steps.length}`;
+}
+
+function placeholderSVG(){
+  return `<svg class="placeholder" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <rect width="320" height="200" fill="#1C1714"/>
+    <g fill="none" stroke="#C8A24B" stroke-width="1.2" opacity="0.5">
+      <circle cx="160" cy="100" r="46"/><circle cx="160" cy="100" r="30"/>
+      <path d="M160 40 L160 24 M160 176 L160 160 M100 100 L84 100 M236 100 L220 100"/>
+    </g>
+    <text x="160" y="106" text-anchor="middle" fill="#9A8870" font-family="Jost,sans-serif" font-size="11" letter-spacing="3">YOUR PHOTO HERE</text>
+  </svg>`;
+}
+
+/* ---------- screens ---------- */
+function render(){
+  const tagline = document.getElementById('tagline');
+  tagline.style.display = state.screen==='home' ? '' : 'none';
+  if (state.screen==='home')     return renderHome();
+  if (state.screen==='password') return renderPassword();
+  if (state.screen==='story')    return renderStory();
+  if (state.screen==='route')    return renderRoute();
+  if (state.screen==='travel')   return renderTravel();
+  if (state.screen==='finale')   return renderFinale();
+  if (state.phase==='intro')     return renderIntro();
+  if (state.phase==='riddle')    return renderRiddle();
+  if (state.phase==='answer')    return renderAnswer();
+}
+
+function renderHome(){
+  document.getElementById('stage').innerHTML = `
+    <div class="home-cta">
+      <button class="next-btn big-begin" onclick="goBegin()">Begin</button>
+    </div>`;
+  renderTrack();
+}
+
+function renderPassword(){
+  document.getElementById('stage').innerHTML = `
+    <div class="card"><div class="card-body">
+      <p class="intro-copy">Enter the password to start the game!</p>
+      <div class="answer-row" id="pwRow">
+        <div class="pw-field">
+          <input id="pwInput" type="password" autocomplete="off" placeholder="Password…"
+                 onkeydown="if(event.key==='Enter')checkPassword()">
+          <button class="pw-eye" id="pwEye" onclick="togglePw()" aria-label="Show password">${iconEye()}</button>
+        </div>
+        <button class="solve" onclick="checkPassword()">Enter</button>
+      </div>
+      <div class="feedback" id="pwFeedback"></div>
+    </div></div>`;
+  renderTrack();
+  const inp=document.getElementById('pwInput'); if(inp) inp.focus();
+}
+
+function renderStory(){
+  document.getElementById('stage').innerHTML = `
+    <div class="card"><div class="card-body">
+      <div class="story-text">${INTRO_PART1}</div>
+      <button class="next-btn" onclick="goStoryNext()">Next</button>
+    </div></div>`;
+  renderTrack();
+}
+
+function renderRoute(){
+  const total = HUNT.steps.length;
+  const shortCount = HUNT.steps.filter(s=>s.short).length;
+  const sel = state.pendingRoute;
+  document.getElementById('stage').innerHTML = `
+    <div class="card"><div class="card-body">
+      <div class="story-text">${INTRO_PART2}</div>
+      <div class="routes">
+        <button class="route-card ${sel==='full'?'sel':''}" onclick="pickRoute('full')">
+          <span class="rc-dot"></span>
+          <span class="rc-text">
+            <span class="rc-name">Complete Tour</span>
+            <span class="rc-meta">${total} stops · the full experience</span>
+          </span>
+        </button>
+        <button class="route-card ${sel==='short'?'sel':''}" onclick="pickRoute('short')">
+          <span class="rc-dot"></span>
+          <span class="rc-text">
+            <span class="rc-name">Short Tour</span>
+            <span class="rc-meta">${shortCount} stops · the unmissable spots</span>
+          </span>
+        </button>
+      </div>
+      <button class="next-btn" onclick="startHunt()">Start the cruise</button>
+    </div></div>`;
+  renderTrack();
+}
+
+function renderIntro(){
+  const i = state.current, step = activeSteps()[i];
+  const visual = step.image
+    ? `<img src="${step.image}" alt="${step.station}" onerror="this.outerHTML=placeholderSVG()">`
+    : placeholderSVG();
+  document.getElementById('stage').innerHTML = `
+    <div class="card">
+      <div class="card-top">
+        <span class="num">${String(i+1).padStart(2,'0')}</span>
+        <span class="station">${step.station}</span>
+        <span class="phase-tag">The place</span>
+      </div>
+      <div class="card-body">
+        ${backLink()}
+        <div class="visual">${visual}</div>
+        <div class="desc-scroll">${step.desc.split('\n\n').map(p=>`<p>${p}</p>`).join('')}</div>
+        <div class="aux">
+          <button class="ghost" id="listenBtn" onclick="toggleListen(${i})">${iconSound()} Listen to description</button>
+        </div>
+        <button class="next-btn" onclick="${step.final ? 'goEnding()' : "goPhase('riddle')"}">Next</button>
+      </div>
+    </div>`;
+  renderTrack();
+  setListenBtn(isPlaying());
+}
+
+function renderRiddle(){
+  const i = state.current, step = activeSteps()[i];
+  const visual = step.riddleImage
+    ? `<img src="${step.riddleImage}" alt="" onerror="this.outerHTML=placeholderSVG()">`
+    : '';
+  const clueBtns = step.hints.map((h,idx)=>{
+    const revealed = !!state.hintsShown[i][idx];
+    const unlocked = idx===0 || !!state.hintsShown[i][idx-1];
+    const cls = revealed ? 'used' : (unlocked ? '' : 'locked');
+    const dis = (!revealed && !unlocked) ? 'disabled' : '';
+    return `<button class="ghost clue-btn ${cls}" id="clue${idx}" ${dis} onclick="revealClue(${idx})">${iconBulb()} Clue ${idx+1}</button>`;
+  }).join('');
+  const hintsInit = step.hints.map((h,idx)=> state.hintsShown[i][idx]
+    ? `<div class="hint"><b>Clue ${idx+1}.</b> ${h}</div>` : '').join('');
+  document.getElementById('stage').innerHTML = `
+    <div class="card">
+      <div class="card-top">
+        <span class="num">${String(i+1).padStart(2,'0')}</span>
+        <span class="station">${step.station}</span>
+        <span class="phase-tag">The riddle</span>
+      </div>
+      <div class="card-body">
+        ${backLink()}
+        ${visual ? `<div class="visual">${visual}</div>` : ''}
+        ${step.prompt ? `<p class="lookaround">${step.prompt}</p>` : ''}
+        <p class="riddle">${step.riddle}</p>
+        <div class="aux">
+          <button class="ghost" id="listenBtn" onclick="toggleListen(${i})">${iconSound()} Listen to description</button>
+        </div>
+        ${clueBtns ? `<div class="clues-row">${clueBtns}</div>` : ''}
+        <div class="hints" id="hintsBox">${hintsInit}</div>
+        <div class="answer-row" id="answerRow">
+          <input id="answerInput" type="text" autocomplete="off" placeholder="Your answer…"
+                 onkeydown="if(event.key==='Enter')submitAnswer()">
+          <button class="solve" onclick="submitAnswer()">Submit</button>
+        </div>
+        <div class="feedback" id="feedback"></div>
+      </div>
+    </div>`;
+  renderTrack();
+  setListenBtn(isPlaying());
+  const inp = document.getElementById('answerInput'); if (inp) inp.focus();
+}
+
+function renderAnswer(){
+  const steps = activeSteps();
+  const i = state.current, step = steps[i];
+  const next = steps[i+1];
+  const isLast = !next;
+  const aImg = step.answerImage || step.image || '';
+  const visual = aImg
+    ? `<img src="${aImg}" alt="" onerror="this.outerHTML=placeholderSVG()">`
+    : placeholderSVG();
+  const body = step.answerText
+    ? step.answerText.split('\n\n').map(p=>`<p class="answer-note">${p}</p>`).join('')
+    : `<p class="reveal">The answer was<b>${step.answers[0]}</b></p>` +
+      (step.note ? `<p class="answer-note">${step.note}</p>` : '');
+  document.getElementById('stage').innerHTML = `
+    <div class="card">
+      <div class="card-top">
+        <span class="num">${String(i+1).padStart(2,'0')}</span>
+        <span class="station">${step.station}</span>
+        <span class="phase-tag">Solved</span>
+      </div>
+      <div class="card-body">
+        <div class="visual">${visual}</div>
+        <span class="solved-badge">${iconCheck()} Correct</span>
+        ${body}
+        <div class="aux">
+          <button class="ghost" id="listenBtn" onclick="toggleListen(${i})">${iconSound()} Listen to description</button>
+        </div>
+        ${next ? `<a class="ghost gps-btn" href="${mapsUrl(next)}" target="_blank" rel="noopener">${iconPin()} Directions to the next spot</a>` : ''}
+        <button class="next-btn" onclick="goNext()">${isLast ? 'Finish' : "I'm there!"}</button>
+      </div>
+    </div>`;
+  renderTrack();
+  setListenBtn(isPlaying());
+}
+
+function renderFinale(){
+  const visual = ENDING_IMAGE
+    ? `<img src="${ENDING_IMAGE}" alt="" onerror="this.outerHTML=placeholderSVG()">`
+    : placeholderSVG();
+  document.getElementById('stage').innerHTML = `
+    <div class="card"><div class="card-body">
+      <div class="visual">${visual}</div>
+      <h2 class="finale-title">See you soon!</h2>
+      <div class="story-text">${ENDING_TEXT}</div>
+      <button class="next-btn" onclick="resetHunt()">Finish the game</button>
+    </div></div>`;
+  renderTrack();
+}
+
+/* ---------- actions ---------- */
+function pickRoute(r){ state.pendingRoute = r; renderRoute(); }
+
+function goBegin(){
+  state.screen = 'password';
+  render(); window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goStoryNext(){
+  state.screen = 'route';
+  render(); window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goEnding(){
+  stopAudio();
+  confettiBurst();
+  state.screen = 'finale';
+  render(); window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function togglePw(){
+  const inp=document.getElementById('pwInput');
+  const eye=document.getElementById('pwEye');
+  if(inp.type==='password'){
+    inp.type='text'; eye.innerHTML=iconEyeOff(); eye.setAttribute('aria-label','Hide password');
+  } else {
+    inp.type='password'; eye.innerHTML=iconEye(); eye.setAttribute('aria-label','Show password');
+  }
+  inp.focus();
+}
+
+function dropConfetti(layer){
+  const colors=['#C8A24B','#9B2D3A','#EDE4D3','#7FA86B','#E8B84B','#D98C5F'];
+  for(let i=0;i<90;i++){
+    const c=document.createElement('div');
+    c.className='confetti';
+    c.style.left=Math.random()*100+'vw';
+    c.style.background=colors[i%colors.length];
+    c.style.setProperty('--drift',(Math.random()*240-120)+'px');
+    c.style.setProperty('--spin',(360+Math.random()*720)+'deg');
+    c.style.animationDuration=(1.1+Math.random()*1.2)+'s';
+    c.style.animationDelay=(Math.random()*0.35)+'s';
+    if(Math.random()<0.5) c.style.borderRadius='50%';
+    layer.appendChild(c);
+  }
+}
+
+function celebrate(done){
+  const layer=document.createElement('div');
+  layer.className='celebrate';
+  const msg=document.createElement('div');
+  msg.className='msg'; msg.textContent="That's right!";
+  layer.appendChild(msg);
+  dropConfetti(layer);
+  document.body.appendChild(layer);
+  setTimeout(()=>{ layer.remove(); if(done)done(); }, 1600);
+}
+
+function confettiBurst(){
+  const layer=document.createElement('div');
+  layer.className='celebrate';
+  dropConfetti(layer);
+  document.body.appendChild(layer);
+  setTimeout(()=>layer.remove(), 2800);
+}
+
+function checkPassword(){
+  const inp = document.getElementById('pwInput');
+  const fb  = document.getElementById('pwFeedback');
+  if (norm(inp.value) === norm(GAME_PASSWORD)){
+    celebrate(()=>{
+      state.screen = 'story';
+      render(); window.scrollTo({top:0,behavior:'smooth'});
+    });
+  } else {
+    fb.className='feedback bad'; fb.textContent='Wrong password — ask a volunteer if you\'re stuck.';
+    const row=document.getElementById('pwRow');
+    row.classList.remove('shake'); void row.offsetWidth; row.classList.add('shake');
+    inp.select();
+  }
+}
+
+function startHunt(){
+  state.route = state.pendingRoute;
+  state.screen = 'travel'; state.phase = 'intro'; state.current = 0;
+  const n = activeSteps().length;
+  state.hintsShown = Array.from({length:n}, ()=>({}));
+  render(); window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderTravel(){
+  const step = activeSteps()[state.current];
+  document.getElementById('stage').innerHTML = `
+    <div class="card"><div class="card-body">
+      ${backLink()}
+      <p class="intro-copy">Alright! Head to this first location to begin your journey!</p>
+      <a class="ghost gps-btn" href="${mapsUrl(step)}" target="_blank" rel="noopener">${iconPin()} Directions to the next spot</a>
+      <button class="next-btn" onclick="arrive()">I'm there!</button>
+    </div></div>`;
+  renderTrack();
+}
+
+function arrive(){
+  stopAudio();
+  state.screen = 'play'; state.phase = 'intro';
+  render(); window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goPhase(p){ state.phase = p; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+
+function back(){
+  stopAudio();
+  if (state.screen==='travel'){
+    state.screen='route';
+  } else if (state.screen==='play' && state.phase==='riddle'){
+    state.phase='intro';
+  } else if (state.screen==='play' && state.phase==='intro'){
+    if (state.current===0){
+      state.screen='travel';
+    } else {
+      state.current--;
+      state.phase='answer';
+    }
+  }
+  render(); window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function backLink(){
+  return `<button class="back-link" onclick="back()">${iconArrow()} Back</button>`;
+}
+
+function submitAnswer(){
+  const i = state.current;
+  const inp = document.getElementById('answerInput');
+  const fb  = document.getElementById('feedback');
+  const val = norm(inp.value);
+  if (!val){ inp.focus(); return; }
+  const ok = activeSteps()[i].answers.some(a => norm(a) === val);
+  if (ok){
+    stopAudio();
+    fb.className='feedback good'; fb.textContent='';
+    celebrate(()=>goPhase('answer'));
+  } else {
+    fb.className='feedback bad'; fb.textContent='Not quite. Try again, or reveal a clue.';
+    const row=document.getElementById('answerRow');
+    row.classList.remove('shake'); void row.offsetWidth; row.classList.add('shake');
+    inp.select();
+  }
+}
+
+function goNext(){
+  stopAudio();
+  state.current++;
+  if (state.current >= activeSteps().length){
+    state.screen = 'finale';
+  } else {
+    state.phase = 'intro';
+  }
+  render(); window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function revealClue(h){
+  const i = state.current;
+  const step = activeSteps()[i];
+  const unlocked = h===0 || !!state.hintsShown[i][h-1];
+  if (!unlocked || state.hintsShown[i][h]) return;
+  state.hintsShown[i][h] = true;
+  step.hints.forEach((_,idx)=>{
+    const b = document.getElementById('clue'+idx);
+    if (!b) return;
+    const revealed = !!state.hintsShown[i][idx];
+    const unl = idx===0 || !!state.hintsShown[i][idx-1];
+    b.classList.toggle('used', revealed);
+    b.classList.toggle('locked', !revealed && !unl);
+    b.disabled = (!revealed && !unl);
+  });
+  const box = document.getElementById('hintsBox');
+  if (box){
+    box.innerHTML = step.hints.map((txt,idx)=> state.hintsShown[i][idx]
+      ? `<div class="hint"><b>Clue ${idx+1}.</b> ${txt}</div>` : '').join('');
+  }
+}
+
+let audioEl = null;
+
+function isPlaying(){
+  const speaking = ('speechSynthesis' in window) && speechSynthesis.speaking;
+  const playing  = audioEl && !audioEl.paused;
+  return speaking || playing;
+}
+
+function stopAudio(){
+  if ('speechSynthesis' in window) speechSynthesis.cancel();
+  if (audioEl){ audioEl.pause(); audioEl.currentTime = 0; }
+  setListenBtn(false);
+}
+
+function setListenBtn(playing){
+  const b = document.getElementById('listenBtn');
+  if (!b) return;
+  b.innerHTML = playing
+    ? `${iconSoundOff()} Stop audio`
+    : `${iconSound()} Listen to description`;
+}
+
+function toggleListen(i){
+  if (isPlaying()){ stopAudio(); return; }
+  const step = activeSteps()[i];
+  const text = (state.phase==='answer') ? (step.answerText || step.desc) : step.desc;
+  if (step.audio){
+    audioEl = new Audio(step.audio);
+    audioEl.onended = ()=> setListenBtn(false);
+    audioEl.play().catch(()=>{});
+  } else if ('speechSynthesis' in window){
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang='en-GB'; u.rate=0.97;
+    u.onend = ()=> setListenBtn(false);
+    speechSynthesis.speak(u);
+  } else { return; }
+  setListenBtn(true);
+}
+
+function mapsUrl(step){
+  return `https://www.google.com/maps/dir/?api=1&destination=${step.lat},${step.lng}`;
+}
+
+function resetHunt(){
+  stopAudio();
+  state.screen='home'; state.route=null; state.phase='intro'; state.current=0;
+  state.hintsShown=[];
+  render(); window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* icons */
+function iconSound(){return '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 00-2.5-4v8a4.5 4.5 0 002.5-4z"/></svg>';}
+function iconSoundOff(){return '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16.5 9.5l5 5m0-5l-5 5" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"/></svg>';}
+function iconBulb(){return '<svg viewBox="0 0 24 24"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 00-4 12.7V18h8v-3.3A7 7 0 0012 2z"/></svg>';}
+function iconPin(){return '<svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z"/></svg>';}
+function iconCheck(){return '<svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4 14.2l5 5 11-11-1.5-1.4z"/></svg>';}
+function iconArrow(){return '<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';}
+function iconEye(){return '<svg viewBox="0 0 24 24"><path d="M12 5C5 5 1.7 11.3 1.7 12S5 19 12 19s10.3-6.3 10.3-7S19 5 12 5zm0 11.5A4.5 4.5 0 1112 7a4.5 4.5 0 010 9.5z"/><circle cx="12" cy="12" r="2.3"/></svg>';}
+function iconEyeOff(){return '<svg viewBox="0 0 24 24"><path d="M2.4 3.5 3.5 2.4l18.1 18.1-1.1 1.1-3.3-3.3A11.6 11.6 0 0 1 12 19C5 19 1.7 12 1.7 12a13.6 13.6 0 0 1 4.2-4.8L2.4 3.5Zm6 6L13 14.1a2.5 2.5 0 0 1-2.5-2.5c0-.2 0-.4.1-.6l-2.2-2.2ZM12 5c7 0 10.3 7 10.3 7a13.8 13.8 0 0 1-2.6 3.5l-2.3-2.3a4.5 4.5 0 0 0-5.6-5.6L9.7 5.3A11.8 11.8 0 0 1 12 5Z"/></svg>';}
+
+render();
+</script>
+</body>
+</html>
