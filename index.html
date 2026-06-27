@@ -317,7 +317,7 @@ const HUNT = {
       station: "Den Gamle By",
       lat: 56.157946, lng: 10.193714,
       image: "images/den-gamle-by.jpg",
-      desc: "What better place to symbolize the theme of this year's exchange? Den Gamle By (The Old Town), which has been elected Best European Museum of The Year 2026, was founded in the 1900s. This open-air museum, one of the world's first, contains historical buildings that have been saved from destruction, and rebuilt stone by stone in Aarhus. The oldest building is the house of an Aalborg mayor... from 1597! We're beyond decades here, the centuries up to the 16th are represented by the buildings, and even prior to that, with the museum of the history of Aarhus that you can visit inside!\n\nHowever, one of its most famous areas will take you back to the 1970s, with shops full of old televisions, vinyl records, vintage cars, etc... If you go for a visit in there (which is free from 5pm to 10pm), and you're sneaky about it, you can try to... \"borrow\" an outfit for tonight's party ;p",
+      desc: "What better place to symbolize the theme of this year's exchange? Den Gamle By (The Old Town) was founded in the 1900s. This open-air museum, one of the world's first, contains historical buildings that have been saved from destruction, and rebuilt stone by stone in Aarhus. The oldest building is the house of an Aalborg mayor... from 1597! We're beyond decades here, the centuries up to the 16th are represented by the buildings, and even prior to that, with the museum of the history of Aarhus that you can visit inside!\n\nHowever, one of its most famous areas will take you back to the 1970s, with shops full of old televisions, vinyl records, vintage cars, etc... If you go for a visit in there (which is free from 5pm to 10pm), and you're sneaky about it, you can try to... \"borrow\" an outfit for tonight's party ;p",
       prompt: "",
       riddleImage: "images/den-gamle-by-riddle.jpg",
       riddle: "Now find the animal that… Oh wait… I've just received some info that one of the members of The Big Five will be unavailable tonight, and they need a replacement! I heard that there might be an instrument player around Den Gamle By, can you tell me what instrument he plays, to see if it fits their needs?",
@@ -656,7 +656,8 @@ function renderRiddle(){
     </div>`;
   renderTrack();
   setListenBtn(isPlaying());
-  const inp = document.getElementById('answerInput'); if (inp) inp.focus();
+  const inp = document.getElementById('answerInput');
+  if (inp && window.matchMedia('(pointer: fine)').matches) inp.focus();
 }
 
 function renderAnswer(){
