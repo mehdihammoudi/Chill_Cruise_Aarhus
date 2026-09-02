@@ -129,7 +129,11 @@ h1 .amp{color:var(--brass)}
 /* answer page */
 .solved-badge{display:inline-flex;align-items:center;gap:8px;color:var(--ok);
   font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px}
+.solved-badge.revealed{color:var(--brass)}
 .solved-badge svg{width:16px;height:16px;fill:currentColor}
+#solutionBox{display:contents}
+.solution-btn{border-color:var(--brass);color:var(--brass)}
+.solution-btn:hover{background:rgba(200,162,75,.12);color:var(--brass)}
 .reveal{font-size:1.05rem;margin-bottom:6px}
 .reveal b{font-family:'Limelight',serif;color:var(--brass);font-weight:400;
   font-size:1.3rem;display:block;margin-top:4px}
@@ -190,6 +194,13 @@ h1 .amp{color:var(--brass)}
   font-size:clamp(2.2rem,11vw,4.2rem);text-shadow:0 3px 0 rgba(0,0,0,.45);
   animation:pop .5s cubic-bezier(.2,1.5,.4,1) both}
 @keyframes pop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
+.celebrate.answer-overlay{background:rgba(20,16,12,.82);pointer-events:auto}
+.answer-pop{display:flex;flex-direction:column;align-items:center;gap:8px;
+  animation:pop .5s cubic-bezier(.2,1.5,.4,1) both}
+.answer-pop .answer-label{font-family:'Jost',sans-serif;font-size:1rem;
+  letter-spacing:.32em;text-transform:uppercase;color:var(--cream)}
+.answer-pop .answer-word{font-family:'Limelight',serif;color:var(--brass);
+  font-size:clamp(2.2rem,11vw,4rem);text-shadow:0 3px 0 rgba(0,0,0,.45);text-align:center}
 .confetti{position:absolute;width:10px;height:14px;top:-24px;
   animation:fall linear forwards}
 @keyframes fall{
@@ -268,7 +279,7 @@ const HUNT = {
         "At the very south…"
       ],
       answerImage: "images/papadum.gif",          // photo at the top of the answer page (optional)
-      answerText: "Papadum indeed! Feel free to grab some of these bean snacks on your way out, while you head for the next location!",
+      answerText: "Papadum indeed! Feel free to grab some of these legume snacks on your way out, while you head for the next location!",
       note: "",
       audio: "",
       short: true
@@ -281,7 +292,7 @@ const HUNT = {
       prompt: "",
       riddleImage: "images/town-hall-riddle.jpg",
       riddle: "Now, if you look on your right, you will also see a fountain, depicting a cute little family of piggies. But these are not the only animals hiding in the vicinity, there is another one, close by. Can you tell what kind of animal it is?",
-      answers: ["bird", "a bird", "birds"],
+      answers: ["Bird", "a bird", "birds"],
       hints: [
         "This animal is not in 3D this time, but in 2D.",
         "No need to look too far, it is located on the same sidewalk as you are.",
@@ -301,7 +312,7 @@ const HUNT = {
       prompt: "",
       riddleImage: "images/aros-riddle.jpg",
       riddle: "Now if you look behind you, you can also spot a long metallic sculpture oscillating in the wind, in the park Mølleparken. Can you guess what kind of animal it is supposed to represent?",
-      answers: ["snake", "a snake", "snakes"],
+      answers: ["Snake", "a snake", "snakes"],
       hints: [
         "Get a closer look.",
         "An even closer one.",
@@ -321,7 +332,7 @@ const HUNT = {
       prompt: "",
       riddleImage: "images/den-gamle-by-riddle.jpg",
       riddle: "Now find the animal that… Oh wait… I've just received some info that one of the members of The Big Five will be unavailable tonight, and they need a replacement! I heard that there might be an instrument player around Den Gamle By, can you tell me what instrument he plays, to see if it fits their needs?",
-      answers: ["drums", "drum", "the drums", "drum kit", "drumset", "drum set", "percussion"],
+      answers: ["Drums", "drum", "the drums", "drum kit", "drumset", "drum set", "percussion"],
       hints: [
         "Apparently he doesn't like to be outside too much.",
         "Nor does he like to stand too much.",
@@ -341,7 +352,7 @@ const HUNT = {
       prompt: "",
       riddleImage: "images/greenhouses-riddle.jpg",
       riddle: "Speaking of the tropical greenhouse, they also seem to have installed a natural baby play park, where you can put your children while you explore the rest of the place. Can you tell me what plant they used for this play park?",
-      answers: ["giant water lilies", "giant water lily", "water lilies", "water lily", "giant waterlily", "waterlily", "waterlilies", "water lilly", "water lillies"],
+      answers: ["Giant Water Lilies", "giant water lily", "water lilies", "water lily", "giant waterlily", "waterlily", "waterlilies", "water lilly", "water lillies"],
       hints: [
         "No need to look on the upper levels, it is on the ground floor.",
         "No need to get lost between the inner plants, the park is close to the outer wall of the greenhouse.",
@@ -361,7 +372,7 @@ const HUNT = {
       prompt: "",
       riddleImage: "images/vesterbro-torv-riddle.jpg",
       riddle: "Who's that animal? It's been a while since we last had an animal riddle, hasn't it? The owner of one of the buildings on this square seems to have a deep love for one animal in particular, can you find which one it is?",
-      answers: ["deer", "a deer", "the deer", "deers"],
+      answers: ["Deer", "a deer", "the deer", "deers"],
       hints: [
         "He also seems to have a deep love for hoppy beverages.",
         "Test your orientation skills, and see if you can look in the direction of Den Gamle By.",
@@ -401,7 +412,7 @@ const HUNT = {
       prompt: "",
       riddleImage: "images/domkirke-riddle.jpg",
       riddle: "Shhht… Act natural, but I have a feeling that we're being watched... It seems to be coming from the old theater, behind the cathedral, on the right. Can you carefully and discreetly go to investigate where it comes from?",
-      answers: ["demon", "a demon", "devil", "a devil", "the devil"],
+      answers: ["Demon", "a demon", "devil", "a devil", "the devil"],
       hints: [
         "For it to be able to see us from that far, it must have a high vantage point.",
         "This feeling I get is really the opposite of what I feel from the cathedral…",
@@ -462,7 +473,8 @@ const state = {
   pendingRoute: 'full',  // selection on the home screen
   phase: 'intro',        // 'intro' | 'riddle' | 'answer'
   current: 0,
-  hintsShown: []
+  hintsShown: [],
+  solutionShown: false
 };
 
 function activeSteps(){
@@ -644,7 +656,7 @@ function renderRiddle(){
         <div class="aux">
           <button class="ghost" id="listenBtn" onclick="toggleListen(${i})">${iconSound()} Listen to description</button>
         </div>
-        ${clueBtns ? `<div class="clues-row">${clueBtns}</div>` : ''}
+        ${clueBtns ? `<div class="clues-row">${clueBtns}<span id="solutionBox"></span></div>` : ''}
         <div class="hints" id="hintsBox">${hintsInit}</div>
         <div class="answer-row" id="answerRow">
           <input id="answerInput" type="text" autocomplete="off" placeholder="Your answer…"
@@ -656,6 +668,7 @@ function renderRiddle(){
     </div>`;
   renderTrack();
   setListenBtn(isPlaying());
+  updateSolutionBtn(i);
   const inp = document.getElementById('answerInput');
   if (inp && window.matchMedia('(pointer: fine)').matches) inp.focus();
 }
@@ -682,7 +695,7 @@ function renderAnswer(){
       </div>
       <div class="card-body">
         <div class="visual">${visual}</div>
-        <span class="solved-badge">${iconCheck()} Correct</span>
+        <span class="solved-badge${state.solutionShown ? ' revealed' : ''}">${state.solutionShown ? iconBulb()+' Answer' : iconCheck()+' Correct'}</span>
         ${body}
         <div class="aux">
           <button class="ghost" id="listenBtn" onclick="toggleListen(${i})">${iconSound()} Listen to description</button>
@@ -794,6 +807,7 @@ function checkPassword(){
 function startHunt(){
   state.route = state.pendingRoute;
   state.screen = 'travel'; state.phase = 'intro'; state.current = 0;
+  state.solutionShown = false;
   const n = activeSteps().length;
   state.hintsShown = Array.from({length:n}, ()=>({}));
   render(); window.scrollTo({top:0,behavior:'smooth'});
@@ -861,6 +875,7 @@ function submitAnswer(){
 
 function goNext(){
   stopAudio();
+  state.solutionShown = false;
   state.current++;
   if (state.current >= activeSteps().length){
     state.screen = 'finale';
@@ -890,6 +905,28 @@ function revealClue(h){
     box.innerHTML = step.hints.map((txt,idx)=> state.hintsShown[i][idx]
       ? `<div class="hint"><b>Clue ${idx+1}.</b> ${txt}</div>` : '').join('');
   }
+  updateSolutionBtn(i);
+}
+
+function updateSolutionBtn(i){
+  const box = document.getElementById('solutionBox');
+  if (!box) return;
+  const step = activeSteps()[i];
+  const allShown = step.hints.length > 0 && step.hints.every((_,idx)=>state.hintsShown[i][idx]);
+  box.innerHTML = allShown
+    ? `<button class="ghost solution-btn" onclick="revealSolution()">${iconBulb()} Solution</button>`
+    : '';
+}
+
+function revealSolution(){
+  stopAudio();
+  state.solutionShown = true;
+  const step = activeSteps()[state.current];
+  const layer = document.createElement('div');
+  layer.className = 'celebrate answer-overlay';
+  layer.innerHTML = `<div class="answer-pop"><span class="answer-label">Answer</span><span class="answer-word">${step.answers[0]}</span></div>`;
+  document.body.appendChild(layer);
+  setTimeout(()=>{ layer.remove(); goPhase('answer'); }, 2000);
 }
 
 let audioEl = null;
