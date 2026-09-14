@@ -279,7 +279,7 @@ const HUNT = {
         "At the very south…"
       ],
       answerImage: "images/papadum.gif",          // photo at the top of the answer page (optional)
-      answerText: "Papadum indeed! Feel free to grab some of these legume snacks on your way out, while you head for the next location!",
+      answerText: "Papadum indeed! Feel free to grab some of these legume snacks on your way out, while you head for the next location :\n Aarhus' Town Hall!",
       note: "",
       audio: "",
       short: true
@@ -299,7 +299,7 @@ const HUNT = {
         "Look close to the road."
       ],
       answerImage: "images/town-hall-answer.jpg",
-      answerText: "Yes, a bird! To be more precise, this is called a Pip, and it is not the only one that exists in the city! Keep your eyes peeled, you might be able to spot other ones during your tour! Maybe there is even one on your way to the next spot…",
+      answerText: "Yes, a bird! To be more precise, this is called a Pip, and it is not the only one that exists in the city! Keep your eyes peeled, you might be able to spot other ones during your tour! Maybe there is even one on your way to the next spot :\n The Art Museum, Aros!",
       note: "",
       audio: "",
       short: true
@@ -319,7 +319,7 @@ const HUNT = {
         "Or check Google Maps :)"
       ],
       answerImage: "images/aros-answer.jpg",
-      answerText: "Yes, this is one of the many snake sculptures scattered around Denmark, but also in Australia! Look at it slithering around in the wind. Speaking of wind, it will carry your steps to the next location…",
+      answerText: "Yes, this is one of the many snake sculptures scattered around Denmark, but also in Australia! Look at it slithering around in the wind. Speaking of wind, it will carry your steps to the next location :\n The open air museum, Den Gamle By!",
       note: "",
       audio: "",
       short: true
@@ -339,7 +339,7 @@ const HUNT = {
         "And it is neither a string, nor a wind instrument."
       ],
       answerImage: "images/den-gamle-by-answer.jpg",
-      answerText: "Ahh drums, got it, thanks! I heard that he is a good player, but a bit rigid in his style! While I confirm with the band if it fits their needs, feel free to travel to the next stop!",
+      answerText: "Ahh drums, got it, thanks! I heard that he is a good player, but a bit rigid in his style! While I confirm with the band if it fits their needs, feel free to travel to the next stop :\n The botanical garden greenhouses!",
       note: "",
       audio: "",
       short: true
@@ -359,7 +359,7 @@ const HUNT = {
         "Your children would not die of thirst if they are dropped there."
       ],
       answerImage: "images/greenhouses-answer.jpg",
-      answerText: "Yes, giant water lilies, which are said to be able to hold the weight of a small baby! Wouldn't recommend trying aerials on them though, unless the heat urges you to take a quick bath! Onto the next spot now!",
+      answerText: "Yes, giant water lilies, which are said to be able to hold the weight of a small baby! Wouldn't recommend trying aerials on them though, unless the heat urges you to take a quick bath! Onto the next spot now :\n Vesterbro Torv!",
       note: "",
       audio: "",
       short: false
@@ -379,7 +379,7 @@ const HUNT = {
         "It is located in one of the corners of the triangle."
       ],
       answerImage: "images/vesterbro-torv-answer.jpg",
-      answerText: "A deer indeed! As the new gnu knew, it is clear that a dear deer drinking beer might cheer for you, on your way to the next venue!",
+      answerText: "A deer indeed! As the new gnu knew, it is clear that a dear deer drinking beer might cheer for you, on your way to the next venue :\n The Latin Quarter!",
       note: "",
       audio: "",
       short: false
@@ -399,7 +399,7 @@ const HUNT = {
         "Sophie might be quite attached to that plaque."
       ],
       answerImage: "images/latin-quarter-answer.jpg",
-      answerText: "Indeed! That area is famous in the history of Paris for its... particular trade. But since we would like to keep this game PG, let's not dwell on this subject too much, and head instead to the next location!",
+      answerText: "Indeed! That area is famous in the history of Paris for its... particular trade. But since we would like to keep this game PG, let's not dwell on this subject too much, and head instead to the next location :\n Aarhus Domkirke!",
       note: "",
       audio: "",
       short: true
@@ -412,14 +412,14 @@ const HUNT = {
       prompt: "",
       riddleImage: "images/domkirke-riddle.jpg",
       riddle: "Shhht… Act natural, but I have a feeling that we're being watched... It seems to be coming from the old theater, behind the cathedral, on the right. Can you carefully and discreetly go to investigate where it comes from?",
-      answers: ["Demon", "a demon", "devil", "a devil", "the devil"],
+      answers: ["Demon", "a demon", "devil", "a devil", "the devil", "gargoyle", "a gargoyle"],
       hints: [
         "For it to be able to see us from that far, it must have a high vantage point.",
         "This feeling I get is really the opposite of what I feel from the cathedral…",
         "Yeah it must be very evil… Coming from hell, or something…"
       ],
       answerImage: "images/domkirke-answer.jpg",
-      answerText: "A horrible demon… This statue was installed two days before the opening of the theater, in the year 1900, and has been scaring passersby ever since… Don't linger too much under its gaze, and quickly head to the next location!",
+      answerText: "A horrible demon… This statue was installed two days before the opening of the theater, in the year 1900, and has been scaring passersby ever since… Don't linger too much under its gaze, and quickly head to the next location :\n The public library Dokk1!",
       note: "",
       audio: "",
       short: true
@@ -439,7 +439,7 @@ const HUNT = {
         "There might be a plaque around, indicating the name that you are looking for."
       ],
       answerImage: "images/dokk1-answer.jpg",
-      answerText: "The Magic Mushrooms! Some say it's called this because of buildings growing like mushrooms when a city expands. Others say that, if you want to visualize these kinds of Inception-like scenes, well… A little help from our friends the fungi could be useful. Now, before you hurt your neck by looking up too much, head to your final destination!",
+      answerText: "The Magic Mushrooms! Some say it's called this because of buildings growing like mushrooms when a city expands. Others say that, if you want to visualize these kinds of Inception-like scenes, well… A little help from our friends the fungi could be useful. Now, before you hurt your neck by looking up too much, head to your final destination :\n Turbinehallen!",
       note: "",
       audio: "",
       short: true
@@ -818,7 +818,7 @@ function renderTravel(){
   document.getElementById('stage').innerHTML = `
     <div class="card"><div class="card-body">
       ${backLink()}
-      <p class="intro-copy">Alright! Head to this first location to begin your journey!</p>
+      <p class="intro-copy">Alright! Head to this first location to begin your journey :\n Aarhus' very own Street Food!</p>
       <a class="ghost gps-btn" href="${mapsUrl(step)}" target="_blank" rel="noopener">${iconPin()} Directions to the next spot</a>
       <button class="next-btn" onclick="arrive()">I'm there!</button>
     </div></div>`;
