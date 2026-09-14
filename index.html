@@ -132,12 +132,13 @@ h1 .amp{color:var(--brass)}
 .solved-badge.revealed{color:var(--brass)}
 .solved-badge svg{width:16px;height:16px;fill:currentColor}
 #solutionBox{display:contents}
-.solution-btn{border-color:var(--brass);color:var(--brass)}
-.solution-btn:hover{background:rgba(200,162,75,.12);color:var(--brass)}
+.solution-btn{background:var(--wine);border-color:var(--wine);color:var(--cream)}
+.solution-btn:hover{background:#b23644;border-color:#b23644;color:var(--cream)}
 .reveal{font-size:1.05rem;margin-bottom:6px}
 .reveal b{font-family:'Limelight',serif;color:var(--brass);font-weight:400;
   font-size:1.3rem;display:block;margin-top:4px}
 .answer-note{color:var(--muted);font-size:.95rem;margin-top:12px}
+.answer-note.destination{text-align:center;color:var(--brass);font-weight:600;font-size:1.15rem;margin-top:14px}
 
 /* primary nav button */
 .next-btn{display:block;width:100%;margin-top:22px;background:var(--brass);
@@ -271,7 +272,7 @@ const HUNT = {
       desc: "One of the best places in Aarhus to meet friends, grab food and drinks, before going dancing!\n\nBuilt in the 1950s, this used to be an industrial bus garage for DSB, the Danish railway company, before being decommissioned in 2011. A few years later, local entrepreneurs, inspired by the street food markets of London and Copenhagen, decided to give the building a second life. After a successful crowdfunding campaign, and with support from the city, Aarhus Street Food officially opened in 2016!\n\nLots of food choices in here, but a personal recommendation would be Za'atar, trust me, it's très bon! The duck and beef burgers are burgering pretty well though, if you'd like a typical Danish dish, the tarteletter are here for that, and the Crepe shop is... well misspelled, but hey I'm sure they're still super good!",
       prompt: "",
       riddleImage: "images/indisk-riddle.jpg",   // photo at the top of the riddle page (optional)
-      riddle: "Another spot worthy of interest is the Indian restaurant Indisk — which seems to be run by a fellow Lindy Hopper, since he named one of his dishes after the rhythm of the triple-step! Can you find the name of that dish?",
+      riddle: "Another spot worthy of interest inside Street Food is the Indian restaurant Indisk — which seems to be run by a fellow Lindy Hopper, since he named one of his dishes after the rhythm of the triple-step! Can you find the name of that dish?",
       answers: ["Papadum", "papadums", "pappadum", "poppadom", "poppadum", "papad"],
       hints: [
         "Look for the map at the back of the restaurant.",
@@ -279,7 +280,7 @@ const HUNT = {
         "At the very south…"
       ],
       answerImage: "images/papadum.gif",          // photo at the top of the answer page (optional)
-      answerText: "Papadum indeed! Feel free to grab some of these legume snacks on your way out, while you head for the next location :\n Aarhus' Town Hall!",
+      answerText: "Papadum indeed! Feel free to grab some of these legume snacks on your way out, while you head for the next location :\n\n>>Aarhus' Town Hall!",
       note: "",
       audio: "",
       short: true
@@ -299,7 +300,7 @@ const HUNT = {
         "Look close to the road."
       ],
       answerImage: "images/town-hall-answer.jpg",
-      answerText: "Yes, a bird! To be more precise, this is called a Pip, and it is not the only one that exists in the city! Keep your eyes peeled, you might be able to spot other ones during your tour! Maybe there is even one on your way to the next spot :\n The Art Museum, Aros!",
+      answerText: "Yes, a bird! To be more precise, this is called a Pip, and it is not the only one that exists in the city! Keep your eyes peeled, you might be able to spot other ones during your tour! Maybe there is even one on your way to the next spot :\n\n>>The Art Museum, Aros!",
       note: "",
       audio: "",
       short: true
@@ -319,7 +320,7 @@ const HUNT = {
         "Or check Google Maps :)"
       ],
       answerImage: "images/aros-answer.jpg",
-      answerText: "Yes, this is one of the many snake sculptures scattered around Denmark, but also in Australia! Look at it slithering around in the wind. Speaking of wind, it will carry your steps to the next location :\n The open air museum, Den Gamle By!",
+      answerText: "Yes, this is one of the many snake sculptures scattered around Denmark, but also in Australia! Look at it slithering around in the wind. Speaking of wind, it will carry your steps to the next location :\n\n>>The open air museum, Den Gamle By!",
       note: "",
       audio: "",
       short: true
@@ -339,7 +340,7 @@ const HUNT = {
         "And it is neither a string, nor a wind instrument."
       ],
       answerImage: "images/den-gamle-by-answer.jpg",
-      answerText: "Ahh drums, got it, thanks! I heard that he is a good player, but a bit rigid in his style! While I confirm with the band if it fits their needs, feel free to travel to the next stop :\n The botanical garden greenhouses!",
+      answerText: "Ahh drums, got it, thanks! I heard that he is a good player, but a bit rigid in his style! While I confirm with the band if it fits their needs, feel free to travel to the next stop :\n\n>>The botanical garden greenhouses!",
       note: "",
       audio: "",
       short: true
@@ -359,7 +360,7 @@ const HUNT = {
         "Your children would not die of thirst if they are dropped there."
       ],
       answerImage: "images/greenhouses-answer.jpg",
-      answerText: "Yes, giant water lilies, which are said to be able to hold the weight of a small baby! Wouldn't recommend trying aerials on them though, unless the heat urges you to take a quick bath! Onto the next spot now :\n Vesterbro Torv!",
+      answerText: "Yes, giant water lilies, which are said to be able to hold the weight of a small baby! Wouldn't recommend trying aerials on them though, unless the heat urges you to take a quick bath! Onto the next spot now :\n\n>>Vesterbro Torv!",
       note: "",
       audio: "",
       short: false
@@ -379,7 +380,7 @@ const HUNT = {
         "It is located in one of the corners of the triangle."
       ],
       answerImage: "images/vesterbro-torv-answer.jpg",
-      answerText: "A deer indeed! As the new gnu knew, it is clear that a dear deer drinking beer might cheer for you, on your way to the next venue :\n The Latin Quarter!",
+      answerText: "A deer indeed! As the new gnu knew, it is clear that a dear deer drinking beer might cheer for you, on your way to the next venue :\n\n>>The Latin Quarter!",
       note: "",
       audio: "",
       short: false
@@ -399,7 +400,7 @@ const HUNT = {
         "Sophie might be quite attached to that plaque."
       ],
       answerImage: "images/latin-quarter-answer.jpg",
-      answerText: "Indeed! That area is famous in the history of Paris for its... particular trade. But since we would like to keep this game PG, let's not dwell on this subject too much, and head instead to the next location :\n Aarhus Domkirke!",
+      answerText: "Indeed! That area is famous in the history of Paris for its... particular trade. But since we would like to keep this game PG, let's not dwell on this subject too much, and head instead to the next location :\n\n>>Aarhus Domkirke!",
       note: "",
       audio: "",
       short: true
@@ -419,7 +420,7 @@ const HUNT = {
         "Yeah it must be very evil… Coming from hell, or something…"
       ],
       answerImage: "images/domkirke-answer.jpg",
-      answerText: "A horrible demon… This statue was installed two days before the opening of the theater, in the year 1900, and has been scaring passersby ever since… Don't linger too much under its gaze, and quickly head to the next location :\n The public library Dokk1!",
+      answerText: "A horrible demon… This statue was installed two days before the opening of the theater, in the year 1900, and has been scaring passersby ever since… Don't linger too much under its gaze, and quickly head to the next location :\n\n>>The public library Dokk1!",
       note: "",
       audio: "",
       short: true
@@ -439,7 +440,7 @@ const HUNT = {
         "There might be a plaque around, indicating the name that you are looking for."
       ],
       answerImage: "images/dokk1-answer.jpg",
-      answerText: "The Magic Mushrooms! Some say it's called this because of buildings growing like mushrooms when a city expands. Others say that, if you want to visualize these kinds of Inception-like scenes, well… A little help from our friends the fungi could be useful. Now, before you hurt your neck by looking up too much, head to your final destination :\n Turbinehallen!",
+      answerText: "The Magic Mushrooms! Some say it's called this because of buildings growing like mushrooms when a city expands. Others say that, if you want to visualize these kinds of Inception-like scenes, well… A little help from our friends the fungi could be useful. Now, before you hurt your neck by looking up too much, head to your final destination :\n\n>>Turbinehallen!",
       note: "",
       audio: "",
       short: true
@@ -656,7 +657,7 @@ function renderRiddle(){
         <div class="aux">
           <button class="ghost" id="listenBtn" onclick="toggleListen(${i})">${iconSound()} Listen to description</button>
         </div>
-        ${clueBtns ? `<div class="clues-row">${clueBtns}<span id="solutionBox"></span></div>` : ''}
+        ${clueBtns ? `<div class="clues-row">${clueBtns}<button class="ghost solution-btn" onclick="revealSolution()">${iconBulb()} Solution</button></div>` : ''}
         <div class="hints" id="hintsBox">${hintsInit}</div>
         <div class="answer-row" id="answerRow">
           <input id="answerInput" type="text" autocomplete="off" placeholder="Your answer…"
@@ -668,7 +669,6 @@ function renderRiddle(){
     </div>`;
   renderTrack();
   setListenBtn(isPlaying());
-  updateSolutionBtn(i);
   const inp = document.getElementById('answerInput');
   if (inp && window.matchMedia('(pointer: fine)').matches) inp.focus();
 }
@@ -683,7 +683,7 @@ function renderAnswer(){
     ? `<img src="${aImg}" alt="" onerror="this.outerHTML=placeholderSVG()">`
     : placeholderSVG();
   const body = step.answerText
-    ? step.answerText.split('\n\n').map(p=>`<p class="answer-note">${p}</p>`).join('')
+    ? step.answerText.split('\n\n').map(p=>{const c=p.startsWith('>>');const t=(c?p.slice(2):p).replace(/\n[ \t]*/g,'<br>');return `<p class="answer-note${c?' destination':''}">${t}</p>`;}).join('')
     : `<p class="reveal">The answer was<b>${step.answers[0]}</b></p>` +
       (step.note ? `<p class="answer-note">${step.note}</p>` : '');
   document.getElementById('stage').innerHTML = `
@@ -818,7 +818,8 @@ function renderTravel(){
   document.getElementById('stage').innerHTML = `
     <div class="card"><div class="card-body">
       ${backLink()}
-      <p class="intro-copy">Alright! Head to this first location to begin your journey :\n Aarhus' very own Street Food!</p>
+      <p class="intro-copy">Alright! Head to this first location to begin your journey:</p>
+      <p class="answer-note destination">Aarhus' very own Street Food!</p>
       <a class="ghost gps-btn" href="${mapsUrl(step)}" target="_blank" rel="noopener">${iconPin()} Directions to the next spot</a>
       <button class="next-btn" onclick="arrive()">I'm there!</button>
     </div></div>`;
@@ -905,17 +906,6 @@ function revealClue(h){
     box.innerHTML = step.hints.map((txt,idx)=> state.hintsShown[i][idx]
       ? `<div class="hint"><b>Clue ${idx+1}.</b> ${txt}</div>` : '').join('');
   }
-  updateSolutionBtn(i);
-}
-
-function updateSolutionBtn(i){
-  const box = document.getElementById('solutionBox');
-  if (!box) return;
-  const step = activeSteps()[i];
-  const allShown = step.hints.length > 0 && step.hints.every((_,idx)=>state.hintsShown[i][idx]);
-  box.innerHTML = allShown
-    ? `<button class="ghost solution-btn" onclick="revealSolution()">${iconBulb()} Solution</button>`
-    : '';
 }
 
 function revealSolution(){
