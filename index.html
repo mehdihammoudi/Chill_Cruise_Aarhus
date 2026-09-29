@@ -341,6 +341,7 @@ const HUNT = {
       ],
       answerImage: "images/den-gamle-by-answer.jpg",
       answerText: "Ahh drums, got it, thanks! I heard that he is a good player, but a bit rigid in his style! While I confirm with the band if it fits their needs, feel free to travel to the next stop :\n\n>>The botanical garden greenhouses!",
+      destShort: "The Latin Quarter!",
       note: "",
       audio: "",
       short: true
@@ -682,8 +683,11 @@ function renderAnswer(){
   const visual = aImg
     ? `<img src="${aImg}" alt="" onerror="this.outerHTML=placeholderSVG()">`
     : placeholderSVG();
-  const body = step.answerText
-    ? step.answerText.split('\n\n').map(p=>{const c=p.startsWith('>>');const t=(c?p.slice(2):p).replace(/\n[ \t]*/g,'<br>');return `<p class="answer-note${c?' destination':''}">${t}</p>`;}).join('')
+  const at = (state.route==='short' && step.destShort)
+    ? step.answerText.replace(/\n\n>>[^]*$/, `\n\n>>${step.destShort}`)
+    : step.answerText;
+  const body = at
+    ? at.split('\n\n').map(p=>{const c=p.startsWith('>>');const t=(c?p.slice(2):p).replace(/\n[ \t]*/g,'<br>');return `<p class="answer-note${c?' destination':''}">${t}</p>`;}).join('')
     : `<p class="reveal">The answer was<b>${step.answers[0]}</b></p>` +
       (step.note ? `<p class="answer-note">${step.note}</p>` : '');
   document.getElementById('stage').innerHTML = `
@@ -726,7 +730,7 @@ function renderFinale(){
 function pickRoute(r){ state.pendingRoute = r; renderRoute(); }
 
 function goBegin(){
-  state.screen = 'password';
+  state.screen = 'story';
   render(); window.scrollTo({top:0,behavior:'smooth'});
 }
 
