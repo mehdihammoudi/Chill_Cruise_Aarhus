@@ -282,7 +282,9 @@ const HUNT = {
       answerImage: "images/papadum.gif",          // photo at the top of the answer page (optional)
       answerText: "Papadum indeed! Feel free to grab some of these legume snacks on your way out, while you head for the next location :\n\n>>Aarhus' Town Hall!",
       note: "",
-      audio: "",
+      audio: "audio/Street Food.m4a",
+      audioRiddle: "audio/Street Food Riddle.m4a",
+      audioAnswer: "audio/Street Food Solution.m4a",
       short: true
     },
     {
@@ -302,7 +304,9 @@ const HUNT = {
       answerImage: "images/town-hall-answer.jpg",
       answerText: "Yes, a bird! To be more precise, this is called a Pip, and it is not the only one that exists in the city! Keep your eyes peeled, you might be able to spot other ones during your tour! Maybe there is even one on your way to the next spot :\n\n>>The Art Museum, Aros!",
       note: "",
-      audio: "",
+      audio: "audio/Town Hall.m4a",
+      audioRiddle: "audio/Town Hall Riddle.m4a",
+      audioAnswer: "audio/Town Hall Solution.m4a",
       short: true
     },
     {
@@ -322,7 +326,9 @@ const HUNT = {
       answerImage: "images/aros-answer.jpg",
       answerText: "Yes, this is one of the many snake sculptures scattered around Denmark, but also in Australia! Look at it slithering around in the wind. Speaking of wind, it will carry your steps to the next location :\n\n>>The open air museum, Den Gamle By!",
       note: "",
-      audio: "",
+      audio: "audio/Aros.m4a",
+      audioRiddle: "audio/Aros Riddle.m4a",
+      audioAnswer: "audio/Aros Solution.m4a",
       short: true
     },
     {
@@ -343,7 +349,9 @@ const HUNT = {
       answerText: "Ahh drums, got it, thanks! I heard that he is a good player, but a bit rigid in his style! While I confirm with the band if it fits their needs, feel free to travel to the next stop :\n\n>>The botanical garden greenhouses!",
       destShort: "The Latin Quarter!",
       note: "",
-      audio: "",
+      audio: "audio/Den Gamle By.m4a",
+      audioRiddle: "audio/Den Gamle By Riddle.m4a",
+      audioAnswer: "audio/Den Gamle By Solution.m4a",
       short: true
     },
     {
@@ -363,7 +371,9 @@ const HUNT = {
       answerImage: "images/greenhouses-answer.jpg",
       answerText: "Yes, giant water lilies, which are said to be able to hold the weight of a small baby! Wouldn't recommend trying aerials on them though, unless the heat urges you to take a quick bath! Onto the next spot now :\n\n>>Vesterbro Torv!",
       note: "",
-      audio: "",
+      audio: "audio/Greenhouses.m4a",
+      audioRiddle: "audio/Greenhouses Riddle.m4a",
+      audioAnswer: "audio/Greenhouses Solution.m4a",
       short: false
     },
     {
@@ -383,7 +393,9 @@ const HUNT = {
       answerImage: "images/vesterbro-torv-answer.jpg",
       answerText: "A deer indeed! As the new gnu knew, it is clear that a dear deer drinking beer might cheer for you, on your way to the next venue :\n\n>>The Latin Quarter!",
       note: "",
-      audio: "",
+      audio: "audio/Vesterbro.m4a",
+      audioRiddle: "audio/Vesterbro Riddle.m4a",
+      audioAnswer: "audio/Vesterbro Solution.m4a",
       short: false
     },
     {
@@ -403,7 +415,9 @@ const HUNT = {
       answerImage: "images/latin-quarter-answer.jpg",
       answerText: "Indeed! That area is famous in the history of Paris for its... particular trade. But since we would like to keep this game PG, let's not dwell on this subject too much, and head instead to the next location :\n\n>>Aarhus Domkirke!",
       note: "",
-      audio: "",
+      audio: "audio/Latin Quarter.m4a",
+      audioRiddle: "audio/Latin Quarter Riddle.m4a",
+      audioAnswer: "audio/Latin Quarter Solution.m4a",
       short: true
     },
     {
@@ -423,7 +437,9 @@ const HUNT = {
       answerImage: "images/domkirke-answer.jpg",
       answerText: "A horrible demon… This statue was installed two days before the opening of the theater, in the year 1900, and has been scaring passersby ever since… Don't linger too much under its gaze, and quickly head to the next location :\n\n>>The public library Dokk1!",
       note: "",
-      audio: "",
+      audio: "audio/Domkirke.m4a",
+      audioRiddle: "audio/Domkirke Riddle.m4a",
+      audioAnswer: "audio/Domkirke Solution.m4a",
       short: true
     },
     {
@@ -443,7 +459,9 @@ const HUNT = {
       answerImage: "images/dokk1-answer.jpg",
       answerText: "The Magic Mushrooms! Some say it's called this because of buildings growing like mushrooms when a city expands. Others say that, if you want to visualize these kinds of Inception-like scenes, well… A little help from our friends the fungi could be useful. Now, before you hurt your neck by looking up too much, head to your final destination :\n\n>>Turbinehallen!",
       note: "",
-      audio: "",
+      audio: "audio/Dokk1.m4a",
+      audioRiddle: "audio/Dokk1 Riddle.m4a",
+      audioAnswer: "audio/Dokk1 Solution.m4a",
       short: true
     },
     {
@@ -460,7 +478,7 @@ const HUNT = {
       answerImage: "",
       answerText: "",
       note: "",
-      audio: "",
+      audio: "audio/TurbineHallen.m4a",
       short: true
     }
   ]
@@ -948,9 +966,12 @@ function setListenBtn(playing){
 function toggleListen(i){
   if (isPlaying()){ stopAudio(); return; }
   const step = activeSteps()[i];
+  const src = state.phase==='riddle' ? step.audioRiddle
+            : state.phase==='answer' ? step.audioAnswer
+            : step.audio;
   const text = (state.phase==='answer') ? (step.answerText || step.desc) : step.desc;
-  if (step.audio){
-    audioEl = new Audio(step.audio);
+  if (src){
+    audioEl = new Audio(src);
     audioEl.onended = ()=> setListenBtn(false);
     audioEl.play().catch(()=>{});
   } else if ('speechSynthesis' in window){
